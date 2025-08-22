@@ -1,82 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF‑8">
-  <meta name="viewport" content="width=device‑width, initial‑scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>sidney links</title>
   <style>
     a { font-size: 300%; font-family: 'Comic Sans MS', cursive, sans-serif; }
-    p { background-color: white; font-size: 150%; font-family: 'Comic Sans MS', cursive, sans-serif; }" 
-
-    }
+    p { background-color: white; font-size: 150%; font-family: 'Comic Sans MS', cursive, sans-serif; }
   </style>
- <ul>
+</head>
+<body>
+  <ul>
     <a href="https://trying-2-much390.tumblr.com" target="_blank">tumblr</a><br><br>
-	<a href="https://last.fm/user/luvsid" target="_blank">last fm</a><br><br>
+    <a href="https://last.fm/user/luvsid" target="_blank">last fm</a><br><br>
     <a href="https://www.instagram.com/desculpa49382295884" target="_blank">pessoal gram</a><br><br>
-	<a href="https://www.instagram.com/djqueroserpadrasto" target="_blank">dj gram</a><br><br>
-	<a href="https://www.instagram.com/ch2mera" target="_blank">producer gram</a><br><br>
+    <a href="https://www.instagram.com/djqueroserpadrasto" target="_blank">dj gram</a><br><br>
+    <a href="https://www.instagram.com/ch2mera" target="_blank">producer gram</a><br><br>
     <a href="https://open.spotify.com/artist/6XQ3ggpufVr2GuCsN6YWsP?si=509c533b28a448a1" target="_blank">music</a><br><br>
     <a href="https://soundcloud.com/user-684238792" target="_blank">more music</a><br><br>
-	<a href="https://ha26ca.bandcamp.com/" target="_blank">solo project</a><br><br>
-	<a href="https://www.youtube.com/@vampiresarereal" target="_blank">hgb</a><br><br>
+    <a href="https://ha26ca.bandcamp.com/" target="_blank">solo project</a><br><br>
+    <a href="https://www.youtube.com/@vampiresarereal" target="_blank">hgb</a><br><br>
     <a href="https://www.enjoei.com.br/@2shanez" target="_blank">enjoei</a><br><br>
     <a href="https://payhip.com/b/2FMkS" target="_blank">drum kit</a><br><br>
     <a href="https://vampiresarereal.store" target="_blank">merch</a><br><br>
     <a href="https://x.com/34wedabeztbbyyy" target="_blank">twitter</a><br><br>
-	<a href="https://www.youtube.com/@philip_frazier1002/videos" target="_blank">youtube idea</a><br><br>
-	<p>I was once a ghost with misunderstood feelings lost in a bookstore of skeptics.. Thank you for finding me</p><br><br>
+    <a href="https://www.youtube.com/@philip_frazier1002/videos" target="_blank">youtube idea</a><br><br>
+    <p>I was once a ghost with misunderstood feelings lost in a bookstore of skeptics.. Thank you for finding me</p><br><br>
   </ul>
-</head>
-<body>
-	<script>
-	var image_width = 1024;
-var interval = 60000;
+  <script>
+    var image_width = 1024;
+    var interval = 60000;
 
-/*
- * puzzle together the long wikimedia API query URL
- */
-var url = 'http://commons.wikimedia.org/w/api.php';
-url += '?action=query&generator=random';
-url += '&grnnamespace=6';     // only return images (6)
-url += '&prop=imageinfo'
-url += '&iiprop=url';
-url += '&iiurlwidth=' + image_width;
-url += '&format=json&callback=processWikimediaJson';
+    // Use HTTPS for the Wikimedia Commons API
+    var url = 'https://commons.wikimedia.org/w/api.php';
+    url += '?action=query&generator=random';
+    url += '&grnnamespace=6';
+    url += '&prop=imageinfo';
+    url += '&iiprop=url';
+    url += '&iiurlwidth=' + image_width;
+    url += '&format=json&callback=processWikimediaJson';
 
-var image = document.createElement('img');
-image.onload = function () {
+    var image = document.createElement('img');
+    image.onload = function () {
       document.body.parentNode.style.backgroundImage = 'url(' + image.src + ')';
-};
+    };
 
-/*
- * JSONP callback that traverses the JSON and sticks it into the html background CSS 
- */
-function processWikimediaJson(json) {
-    var jpg = [];
+    function processWikimediaJson(json) {
+      var jpg = [];
       for (var id in json.query.pages) {
-          jpg.push(json.query.pages[id].imageinfo[0].thumburl);
+        jpg.push(json.query.pages[id].imageinfo[0].thumburl);
       }
       image.src = jpg.pop();
-}
+    }
 
-/*
- * to circumvent crosssite scripting restrictions we need to insert a script tag
- * that gets JSONP from wikimedia API. This JSONP is wrapped in a callback, which
- * we defined above
- */
-function getRandomImageJson() {
-    var script = document.createElement('script');
-    script.src = url;
-    document.body.appendChild(script);     
-    document.body.removeChild(script);      
+    function getRandomImageJson() {
+      var script = document.createElement('script');
+      script.src = url;
+      document.body.appendChild(script);
+      // Remove the script after loading to avoid clutter
+      setTimeout(function() {
+        document.body.removeChild(script);
+      }, 1000);
 
-    // loop
-    window.setTimeout(getRandomImageJson, interval);
-}
+      // loop
+      window.setTimeout(getRandomImageJson, interval);
+    }
 
-// initial nudge to the loop
-getRandomImageJson();
-	</script>
+    // initial nudge to the loop
+    getRandomImageJson();
+  </script>
 </body>
 </html>
