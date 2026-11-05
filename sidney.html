@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sidney links</title>
+  <style>
+    a { font-size: 300%; font-family: 'Comic Sans MS', cursive, sans-serif; }
+    p { background-color: white; font-size: 150%; font-family: 'Comic Sans MS', cursive, sans-serif; }
+  </style>
+</head>
+<body>
+  <ul>
+    <a href="https://trying-2-much390.tumblr.com" target="_blank">tumblr</a><br><br>
+    <a href="https://last.fm/user/luvsid" target="_blank">last fm</a><br><br>
+    <a href="https://www.instagram.com/djqueroserpadrasto" target="_blank">dj gram</a><br><br>
+    <a href="https://www.instagram.com/ch2mera" target="_blank">producer gram</a><br><br>
+    <a href="https://www.tiktok.com/@ch2mera2" target="_blank">tiktok</a><br><br>
+    <a href="https://open.spotify.com/artist/2pNbO2EEKOfBpFTaCpN1yg" target="_blank">musica</a><br><br>
+    <a href="https://open.spotify.com/artist/6XQ3ggpufVr2GuCsN6YWsP?si=509c533b28a448a1" target="_blank">musica alternativa</a><br><br>
+    <a href="https://open.spotify.com/intl-pt/artist/6eETbW3z9hqi4ZvdNkdsS1" target="_blank">projeto</a><br><br> 
+    <a href="https://www.youtube.com/@vampiresarereal" target="_blank">projeto canal</a><br><br>
+    <a href="https://www.enjoei.com.br/@2shanez" target="_blank">enjoei</a><br><br>
+    <a href="https://payhip.com/ch2mera" target="_blank">drum kits</a><br><br>
+    <a href="https://vampiresarereal.store" target="_blank">merch</a><br><br>
+    <a href="https://x.com/34wedabeztbbyyy" target="_blank">twitter</a><br><br>
+    <a href="https://www.youtube.com/@philip_frazier1002/videos" target="_blank">projeto youtube</a><br><br>
+    <a href="https://www.youtube.com/@ch2mera2/videos" target="_blank">tutoriais youtube</a><br><br>
+    <a href="https://i.ibb.co/RThpFz6L/Novo-Projeto-3.png" target="_blank">cigarro favorito</a><br><br>
+    <p>I was once a ghost with misunderstood feelings lost in a bookstore of skeptics.. Thank you for finding me</p><br><br>
+  </ul>
+  <script>
+    var image_width = 1024;
+    var interval = 60000;
+
+    // Use HTTPS for the Wikimedia Commons API
+    var url = 'https://commons.wikimedia.org/w/api.php';
+    url += '?action=query&generator=random';
+    url += '&grnnamespace=6';
+    url += '&prop=imageinfo';
+    url += '&iiprop=url';
+    url += '&iiurlwidth=' + image_width;
+    url += '&format=json&callback=processWikimediaJson';
+
+    var image = document.createElement('img');
+    image.onload = function () {
+      document.body.parentNode.style.backgroundImage = 'url(' + image.src + ')';
+    };
+
+    function processWikimediaJson(json) {
+      var jpg = [];
+      for (var id in json.query.pages) {
+        jpg.push(json.query.pages[id].imageinfo[0].thumburl);
+      }
+      image.src = jpg.pop();
+    }
+
+    function getRandomImageJson() {
+      var script = document.createElement('script');
+      script.src = url;
+      document.body.appendChild(script);
+      // Remove the script after loading to avoid clutter
+      setTimeout(function() {
+        document.body.removeChild(script);
+      }, 1000);
+
+      // loop
+      window.setTimeout(getRandomImageJson, interval);
+    }
+
+    // initial nudge to the loop
+    getRandomImageJson();
+  </script>
+</body>
+</html>
